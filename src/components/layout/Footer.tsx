@@ -1,6 +1,20 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNewsletterSignup } from '../../hooks/useNewsletterSignup';
+
+function LoadingSpinner() {
+  return (
+    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+    </svg>
+  );
+}
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const { subscribe, isLoading, isSuccess, error } = useNewsletterSignup();
+
   return (
     <footer>
       {/* Section 1 - Newsletter */}
@@ -12,15 +26,31 @@ export default function Footer() {
           <p className="text-gray-300 mb-4 max-w-xl">
             By Subscribing this form, you agree to the privacy policy and terms of use.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22C55E] focus:border-transparent"
-            />
-            <button className="bg-[#22C55E] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#16A34A] transition-colors whitespace-nowrap">
-              Subscribe
-            </button>
+          <div className="max-w-md">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                disabled={isLoading}
+                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22C55E] focus:border-transparent disabled:opacity-60"
+              />
+              <button
+                onClick={async () => {
+                  if (email && email.includes('@')) {
+                    const success = await subscribe(email);
+                    if (success) setEmail('');
+                  }
+                }}
+                disabled={isLoading}
+                className="bg-[#22C55E] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#16A34A] transition-colors whitespace-nowrap inline-flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isLoading ? <LoadingSpinner /> : 'Subscribe'}
+              </button>
+            </div>
+            {isSuccess && <p className="mt-3 text-green-400 text-sm font-medium">Welcome to the journey! Check your email.</p>}
+            {error && <p className="mt-3 text-red-400 text-sm">{error}</p>}
           </div>
           <div className="mt-4 flex gap-4">
             <Link to="/privacy-policy" className="text-[#22C55E] hover:underline">
