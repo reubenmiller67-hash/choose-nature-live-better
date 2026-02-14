@@ -71,7 +71,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 <Link
                   to="/admin/dashboard"
                   onClick={onClose}
-                  className="w-full text-center py-3 px-6 rounded-lg text-base font-medium text-gray-500 hover:bg-gray-50 transition-all"
+                  className="block w-full text-center"
+                  style={{ color: '#666', fontSize: '14px', paddingTop: '8px', borderTop: '1px solid #eee', marginTop: '8px' }}
                 >
                   Admin
                 </Link>
