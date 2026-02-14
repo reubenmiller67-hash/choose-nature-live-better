@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ const navLinks = [
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const location = useLocation();
+  const { user } = useAuth();
 
   return (
     <AnimatePresence mode="wait">
@@ -65,6 +67,15 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   </Link>
                 );
               })}
+              {user && (
+                <Link
+                  to="/admin/dashboard"
+                  onClick={onClose}
+                  className="w-full text-center py-3 px-6 rounded-lg text-base font-medium text-gray-500 hover:bg-gray-50 transition-all"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 to="/lead"
                 onClick={onClose}

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { HiOutlineMenuAlt2, HiOutlineUser, HiOutlineShoppingCart } from 'react-icons/hi';
 import { IoGridOutline } from 'react-icons/io5';
 import MobileMenu from './MobileMenu';
+import { useAuth } from '../../context/AuthContext';
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -16,6 +17,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -91,6 +93,14 @@ export default function Header() {
                 </Link>
               );
             })}
+            {user && (
+              <Link
+                to="/admin/dashboard"
+                className="font-medium text-gray-500 hover:text-[#22C55E] transition-colors text-sm"
+              >
+                Admin
+              </Link>
+            )}
           </nav>
         </div>
       </header>

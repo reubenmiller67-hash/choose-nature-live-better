@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNewsletterSignup } from '../../hooks/useNewsletterSignup';
+import { useAuth } from '../../context/AuthContext';
 
 function LoadingSpinner() {
   return (
@@ -14,6 +15,7 @@ function LoadingSpinner() {
 export default function Footer() {
   const [email, setEmail] = useState('');
   const { subscribe, isLoading, isSuccess, error } = useNewsletterSignup();
+  const { user } = useAuth();
 
   return (
     <footer>
@@ -119,6 +121,13 @@ export default function Footer() {
                 Privacy Policy
               </Link>
             </div>
+            {user && (
+              <div style={{ textAlign: 'center', paddingTop: '8px', paddingBottom: '8px' }}>
+                <Link to="/admin/dashboard" style={{ color: '#666', fontSize: '12px', textDecoration: 'none' }} className="hover:text-[#22C55E] transition-colors">
+                  Admin
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>
