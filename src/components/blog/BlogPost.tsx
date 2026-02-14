@@ -36,8 +36,16 @@ export default function BlogPost({ post }: BlogPostProps) {
       </div>
       <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mt-4 mb-8">{post.title}</h1>
       <div className="prose prose-lg max-w-none text-[#1A1A1A] leading-relaxed">
-        <p>{post.excerpt}</p>
-        <p>{post.content}</p>
+        {post.excerpt && <p className="text-lg text-[#6B7280] mb-6">{post.excerpt}</p>}
+        {post.content && (
+          <div className="whitespace-pre-wrap">
+            {post.content.split('\n\n').map((para, i) => (
+              <p key={i} className="mb-4">
+                {para}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );

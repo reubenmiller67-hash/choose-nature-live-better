@@ -3,14 +3,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
-// Firebase config - add your values in .env as VITE_FIREBASE_* variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ?? '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? '',
+  apiKey: "AIzaSyBKqz0P2b6dEXU52ooXjQYH1IJDMix4xrg",
+  authDomain: "choose-nature-live-better.firebaseapp.com",
+  projectId: "choose-nature-live-better",
+  storageBucket: "choose-nature-live-better.firebasestorage.app",
+  messagingSenderId: "649020386290",
+  appId: "1:649020386290:web:f61a7474ff0d0870c5d96b"
 };
 
 const app: FirebaseApp = initializeApp(firebaseConfig);

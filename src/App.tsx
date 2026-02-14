@@ -8,6 +8,10 @@ import MerchPage from './pages/MerchPage';
 import ContactPage from './pages/ContactPage';
 import LeadPage from './pages/LeadPage';
 import PlaceholderPage from './pages/PlaceholderPage';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import BlogPostEditor from './pages/admin/BlogPostEditor';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 
 function App() {
   return (
@@ -26,6 +30,31 @@ function App() {
           <Route path="earnings-disclaimer" element={<PlaceholderPage title="Earnings Disclaimer" />} />
           <Route path="terms-of-use" element={<PlaceholderPage title="Terms of Use" />} />
         </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/posts/new"
+          element={
+            <ProtectedRoute>
+              <BlogPostEditor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/posts/edit/:id"
+          element={
+            <ProtectedRoute>
+              <BlogPostEditor />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

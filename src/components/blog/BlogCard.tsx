@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 interface BlogPost {
   id: string;
+  slug?: string;
   title: string;
   tag: string;
   author: string;
@@ -22,7 +23,7 @@ function formatDate(dateStr: string) {
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <article className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-white">
-      <Link to={`/blog/${post.id}`} className="block">
+      <Link to={`/blog/${post.slug || post.id}`} className="block">
         <div className="aspect-[16/10] bg-[#1B4332] overflow-hidden">
           <img
             src={post.image}
